@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovingObjects", "MovingObje
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovingObjects.Data", "MovingObjects.Data\MovingObjects.Data.csproj", "{778E9B3E-12CF-40B7-A110-966FD30F157D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovingObjects.Repository", "MovingObjects.Repository\MovingObjects.Repository.csproj", "{429B4C93-BCA3-4B18-97F3-05299016644D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{778E9B3E-12CF-40B7-A110-966FD30F157D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{778E9B3E-12CF-40B7-A110-966FD30F157D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{778E9B3E-12CF-40B7-A110-966FD30F157D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{429B4C93-BCA3-4B18-97F3-05299016644D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{429B4C93-BCA3-4B18-97F3-05299016644D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{429B4C93-BCA3-4B18-97F3-05299016644D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{429B4C93-BCA3-4B18-97F3-05299016644D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
