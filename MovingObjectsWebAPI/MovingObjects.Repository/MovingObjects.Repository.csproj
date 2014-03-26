@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameRepository.cs" />
+    <Compile Include="IPlayerRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="PlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

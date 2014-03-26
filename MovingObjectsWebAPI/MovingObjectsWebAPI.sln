@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovingObjects.Data", "Movin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovingObjects.Repository", "MovingObjects.Repository\MovingObjects.Repository.csproj", "{429B4C93-BCA3-4B18-97F3-05299016644D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationHelpers", "PasswordHelpers\AuthenticationHelpers.csproj", "{7B819B27-1D39-4445-AB0F-5AE707A2206B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{429B4C93-BCA3-4B18-97F3-05299016644D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429B4C93-BCA3-4B18-97F3-05299016644D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{429B4C93-BCA3-4B18-97F3-05299016644D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B819B27-1D39-4445-AB0F-5AE707A2206B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B819B27-1D39-4445-AB0F-5AE707A2206B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B819B27-1D39-4445-AB0F-5AE707A2206B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B819B27-1D39-4445-AB0F-5AE707A2206B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
