@@ -11,9 +11,62 @@ namespace MovingObjects.Repository
     {
         private MovingObjectsEntities context;
 
+        public GameRepository()
+        {
+            this.context = new MovingObjectsEntities();
+        }
+
         public IEnumerable<Game> GetAll() 
         {
             return context.Games;
+        }
+
+        public Game Get(int id) 
+        {
+            return this.context.Games.FirstOrDefault(g => g.Id == id);
+        }
+
+        public int Add(Game game) 
+        {
+            int id = 0;
+            if (game != null)
+            {
+                // Adding 'game':
+                /*
+                 * 1. Add 'GameState'
+                 * 2. Add 'GameObjects'
+                 * 3. Add 'game'                 
+                 */
+                
+                
+                this.context.Games.Add(game);
+                context.SaveChanges();
+                id = game.Id;
+            }
+
+            return id;
+        }
+
+        public Game Delete(int id) 
+        {
+            Game game;
+            using (context = new MovingObjectsEntities())
+            {
+                game = context.Games.Find(id);
+
+                if (game != null)
+                {
+                    context.Games.Remove(game);
+                    context.SaveChanges();
+                }
+            }
+
+            return game;
+        }
+
+        public void Update(Game game) 
+        {
+            throw new NotImplementedException();
         }
     }
 }
