@@ -61,6 +61,12 @@ namespace MovingObjects.Repository
 
                 if (game != null)
                 {
+                    var gameState = context.GameStates.FirstOrDefault(gs => gs.GameId == id);
+                    context.GameStates.Remove(gameState);
+
+                    var gameObjects = context.GameObject.Where(go => go.GameId == id);
+                    context.GameObject.RemoveRange(gameObjects);
+
                     context.Games.Remove(game);
                     context.SaveChanges();
                 }
