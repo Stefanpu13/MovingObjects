@@ -20,6 +20,8 @@ namespace MovingObjects.Data
         public double XDirection { get; set; }
         public string YDirection { get; set; }
         public int GameId { get; set; }
+        public int Id { get; set; }
+        public string Color { get; set; }
     
         public virtual Game Game { get; set; }
     }

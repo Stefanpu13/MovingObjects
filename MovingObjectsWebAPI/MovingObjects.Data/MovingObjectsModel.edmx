@@ -7,16 +7,7 @@
     <Schema Namespace="MovingObjectsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="MovingObjectsModelStoreContainer">
           <EntitySet Name="Game" EntityType="MovingObjectsModel.Store.Game" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="GameObject" EntityType="MovingObjectsModel.Store.GameObject" store:Type="Tables" store:Schema="dbo" store:Name="GameObject">
-            <DefiningQuery>SELECT 
-      [GameObject].[ObjectId] AS [ObjectId], 
-      [GameObject].[X] AS [X], 
-      [GameObject].[Y] AS [Y], 
-      [GameObject].[XDirection] AS [XDirection], 
-      [GameObject].[YDirection] AS [YDirection], 
-      [GameObject].[GameId] AS [GameId]
-      FROM [dbo].[GameObject] AS [GameObject]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="GameObject" EntityType="MovingObjectsModel.Store.GameObject" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GameState" EntityType="MovingObjectsModel.Store.GameState" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Highscore" EntityType="MovingObjectsModel.Store.Highscore" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Player" EntityType="MovingObjectsModel.Store.Player" store:Type="Tables" Schema="dbo" />
@@ -46,17 +37,9 @@
           <Property Name="PlayerId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'MovingObjects.dbo.GameObject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="GameObject">
           <Key>
-            <PropertyRef Name="ObjectId" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
-            <PropertyRef Name="XDirection" />
-            <PropertyRef Name="YDirection" />
-            <PropertyRef Name="GameId" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="ObjectId" Type="int" Nullable="false" />
           <Property Name="X" Type="float" Nullable="false" />
@@ -64,6 +47,8 @@
           <Property Name="XDirection" Type="float" Nullable="false" />
           <Property Name="YDirection" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="GameState">
           <Key>
@@ -149,17 +134,12 @@
       <Schema Namespace="MovingObjectsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MovingObjectsEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Games" EntityType="MovingObjectsModel.Game" />
-          <EntitySet Name="GameObjects" EntityType="MovingObjectsModel.GameObject" />
           <EntitySet Name="GameStates" EntityType="MovingObjectsModel.GameState" />
           <EntitySet Name="Highscores" EntityType="MovingObjectsModel.Highscore" />
           <EntitySet Name="Players" EntityType="MovingObjectsModel.Player" />
           <AssociationSet Name="FK_Game_Player" Association="MovingObjectsModel.FK_Game_Player">
             <End Role="Player" EntitySet="Players" />
             <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GameObject_Game" Association="MovingObjectsModel.FK_GameObject_Game">
-            <End Role="Game" EntitySet="Games" />
-            <End Role="GameObject" EntitySet="GameObjects" />
           </AssociationSet>
           <AssociationSet Name="FK_GameState_Game" Association="MovingObjectsModel.FK_GameState_Game">
             <End Role="Game" EntitySet="Games" />
@@ -168,6 +148,11 @@
           <AssociationSet Name="FK_Highscore_Player" Association="MovingObjectsModel.FK_Highscore_Player">
             <End Role="Player" EntitySet="Players" />
             <End Role="Highscore" EntitySet="Highscores" />
+          </AssociationSet>
+          <EntitySet Name="GameObject" EntityType="MovingObjectsModel.GameObject" />
+          <AssociationSet Name="FK_GameObject_Game" Association="MovingObjectsModel.FK_GameObject_Game">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="GameObject" EntitySet="GameObject" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Game">
@@ -179,25 +164,8 @@
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Player" Relationship="MovingObjectsModel.FK_Game_Player" FromRole="Game" ToRole="Player" />
-          <NavigationProperty Name="GameObjects" Relationship="MovingObjectsModel.FK_GameObject_Game" FromRole="Game" ToRole="GameObject" />
           <NavigationProperty Name="GameState" Relationship="MovingObjectsModel.FK_GameState_Game" FromRole="Game" ToRole="GameState" />
-        </EntityType>
-        <EntityType Name="GameObject">
-          <Key>
-            <PropertyRef Name="ObjectId" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
-            <PropertyRef Name="XDirection" />
-            <PropertyRef Name="YDirection" />
-            <PropertyRef Name="GameId" />
-          </Key>
-          <Property Name="ObjectId" Type="Int32" Nullable="false" />
-          <Property Name="X" Type="Double" Nullable="false" />
-          <Property Name="Y" Type="Double" Nullable="false" />
-          <Property Name="XDirection" Type="Double" Nullable="false" />
-          <Property Name="YDirection" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="GameId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Game" Relationship="MovingObjectsModel.FK_GameObject_Game" FromRole="GameObject" ToRole="Game" />
+          <NavigationProperty Name="GameObject" Relationship="MovingObjectsModel.FK_GameObject_Game" FromRole="Game" ToRole="GameObject" />
         </EntityType>
         <EntityType Name="GameState">
           <Key>
@@ -245,18 +213,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GameObject_Game">
-          <End Role="Game" Type="MovingObjectsModel.Game" Multiplicity="1" />
-          <End Role="GameObject" Type="MovingObjectsModel.GameObject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Game">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="GameObject">
-              <PropertyRef Name="GameId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GameState_Game">
           <End Role="Game" Type="MovingObjectsModel.Game" Multiplicity="1" />
           <End Role="GameState" Type="MovingObjectsModel.GameState" Multiplicity="0..1" />
@@ -281,6 +237,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GameObject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="ObjectId" Nullable="false" />
+          <Property Type="Double" Name="X" Nullable="false" />
+          <Property Type="Double" Name="Y" Nullable="false" />
+          <Property Type="Double" Name="XDirection" Nullable="false" />
+          <Property Type="String" Name="YDirection" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="GameId" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Game" Relationship="MovingObjectsModel.FK_GameObject_Game" FromRole="GameObject" ToRole="Game" />
+        </EntityType>
+        <Association Name="FK_GameObject_Game">
+          <End Type="MovingObjectsModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="MovingObjectsModel.GameObject" Role="GameObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameObject">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -294,18 +276,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GameObjects">
-            <EntityTypeMapping TypeName="MovingObjectsModel.GameObject">
-              <MappingFragment StoreEntitySet="GameObject">
-                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="Y" ColumnName="Y" />
-                <ScalarProperty Name="XDirection" ColumnName="XDirection" />
-                <ScalarProperty Name="YDirection" ColumnName="YDirection" />
-                <ScalarProperty Name="GameId" ColumnName="GameId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -338,6 +308,20 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameObject">
+            <EntityTypeMapping TypeName="MovingObjectsModel.GameObject">
+              <MappingFragment StoreEntitySet="GameObject">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="YDirection" ColumnName="YDirection" />
+                <ScalarProperty Name="XDirection" ColumnName="XDirection" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

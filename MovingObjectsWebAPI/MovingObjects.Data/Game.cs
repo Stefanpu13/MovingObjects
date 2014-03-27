@@ -16,7 +16,7 @@ namespace MovingObjects.Data
     {
         public Game()
         {
-            this.GameObjects = new HashSet<GameObject>();
+            this.GameObject = new HashSet<GameObject>();
         }
     
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace MovingObjects.Data
         public System.DateTime Date { get; set; }
     
         public virtual Player Player { get; set; }
-        public virtual ICollection<GameObject> GameObjects { get; set; }
         public virtual GameState GameState { get; set; }
+        public virtual ICollection<GameObject> GameObject { get; set; }
     }
 }

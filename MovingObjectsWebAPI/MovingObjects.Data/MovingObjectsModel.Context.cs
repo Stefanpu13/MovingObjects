@@ -26,9 +26,9 @@ namespace MovingObjects.Data
         }
     
         public DbSet<Game> Games { get; set; }
-        public DbSet<GameObject> GameObjects { get; set; }
         public DbSet<GameState> GameStates { get; set; }
         public DbSet<Highscore> Highscores { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<GameObject> GameObject { get; set; }
     }
 }
