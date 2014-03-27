@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovingObjects.Repository
 {
-    public class GameRepository:IRepository<Game>
+    public class GameRepository:IGameRepository<Game>
     {
         private MovingObjectsEntities context;
 
@@ -19,6 +19,11 @@ namespace MovingObjects.Repository
         public IEnumerable<Game> GetAll() 
         {
             return context.Games;
+        }
+
+        public Player GetPlayer(int id)
+        {
+            return this.context.Players.FirstOrDefault(p => p.Id == id);
         }
 
         public Game Get(int id) 
