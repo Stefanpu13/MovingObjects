@@ -12,5 +12,9 @@ namespace MovingObjects.Models
         public DateTime SaveDate { get; set; }
 
         public int Id { get; set; }
+
+        public GameStateModel GameState { get; set; }
+
+        public ICollection<GameObjectModel> GameObjects { get; set; }
     }
 }
