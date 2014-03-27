@@ -136,7 +136,7 @@ namespace MovingObjects.Controllers
             return response;
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ActionName("Delete")]
         public HttpResponseMessage DeleteGame(int id) 
         {
@@ -144,17 +144,25 @@ namespace MovingObjects.Controllers
             try
             {
                 var game = this.gameRepository.Delete(id);
-                response = Request.CreateResponse(HttpStatusCode.OK,
+                if (game != null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK,
                     "Game with id: " + id + " deleted.");
+                }
+                else
+                {
+                    response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+                        "The game was not found");
+                }
+
             }
             catch (Exception ex)
             {
-
                 response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
                     ex);
             }
 
-            return response;
+            return response;  
             
         }
     }
