@@ -46,7 +46,7 @@ namespace MovingObjects.Controllers
                 }
 
                 // TODO: Validate password.
-               var hash = PasswordHash.CreateHash(playerModel.Password);
+                var hash = PasswordHash.CreateHash(playerModel.Password);
 
                 var player = new Player 
                 {                    
@@ -71,7 +71,7 @@ namespace MovingObjects.Controllers
                 response = Request.CreateResponse(HttpStatusCode.Created, player.Id);
                 response.Headers.Location =
                     new Uri(this.Request.RequestUri + "/" + player.Id.ToString());
-
+                
                 return response;
             }
         }

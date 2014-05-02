@@ -22,6 +22,7 @@ namespace MovingObjects.Controllers
         // get all games
         [HttpGet]
         [ActionName("")]
+        [Authorize(Roles = "User")]
         public IEnumerable<GameModel> GetGames(int playerId)
         {
             var gamesById = 
@@ -61,6 +62,7 @@ namespace MovingObjects.Controllers
 
         [HttpGet]
         [ActionName("Load")]
+        [Authorize(Roles="User")]
         public HttpResponseMessage LoadGame(int id)
         {
 
@@ -69,6 +71,7 @@ namespace MovingObjects.Controllers
 
         [HttpPost]
         [ActionName("Save")]
+        [Authorize(Roles = "User")]
         public HttpResponseMessage SaveGame(int playerId, [FromBody] GameModel gameModel)
         {
             HttpResponseMessage response = null;
@@ -138,6 +141,7 @@ namespace MovingObjects.Controllers
 
         [HttpDelete]
         [ActionName("Delete")]
+        [Authorize(Roles = "User")]
         public HttpResponseMessage DeleteGame(int id) 
         {
             HttpResponseMessage response = null;
